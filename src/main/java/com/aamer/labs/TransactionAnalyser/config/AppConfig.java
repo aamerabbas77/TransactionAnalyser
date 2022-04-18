@@ -23,7 +23,7 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         Refill refill = Refill.intervally(10, Duration.ofMinutes(1));
-        Bandwidth limit = Bandwidth.classic(5, refill).withInitialTokens(10);
+        Bandwidth limit = Bandwidth.classic(10, refill).withInitialTokens(10);
         Bucket bucket = Bucket.builder().addLimit(limit).build();
         registry.addInterceptor(new RateLimitInterceptor(bucket, 1))
                 .addPathPatterns("/api/relativeBalance");
